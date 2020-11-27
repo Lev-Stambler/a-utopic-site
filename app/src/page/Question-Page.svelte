@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     justify-items: center;
-    padding: 20%;
+    padding: 100px 20%;
   }
 
   .question {
@@ -27,6 +27,7 @@
     width: 100%;
     min-height: 50px;
     text-align: center;
+    cursor: pointer;
   }
 </style>
 <script>

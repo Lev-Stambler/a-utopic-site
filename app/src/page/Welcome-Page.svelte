@@ -1,13 +1,19 @@
 <script>
-  import {push, } from 'svelte-spa-router'
+  import { push } from "svelte-spa-router";
   import { alertAutoClose } from "../helpers/auto-close-alert";
   let countdown = 10;
   let stopped = false;
 
   async function docountdown() {
     if (countdown == 0) {
-      await alertAutoClose("You are now going to be moved onto the next screen", "You have no choice", 500, 500, 3000)
-      nav()
+      await alertAutoClose(
+        "You are now going to be moved onto the next screen",
+        "You have no choice",
+        500,
+        500,
+        3000
+      );
+      nav();
       return;
     }
     if (stopped) {
@@ -20,9 +26,9 @@
   }
   function nav() {
     stopped = true;
-    push("/question/1", {})
+    push("/question/1", {});
   }
-  docountdown()
+  docountdown();
 </script>
 
 <style>

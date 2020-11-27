@@ -1,3 +1,26 @@
+<script>
+  import { push } from "svelte-spa-router";
+  import { alertAutoClose } from "../helpers/auto-close-alert";
+  export let correct = 0;
+  export let question = "my question";
+  export let choices = ["Choice 1", "Choice 2", "choice 3", "choice 4"];
+  export let nextPage = "/";
+  async function choiceMade(choiceInd) {
+    if (choiceInd !== correct) {
+      await alertAutoClose(
+        `I am sorry, the choice ${choices[choiceInd]} is not available. Please try again`,
+        "You have no choice",
+        500,
+        500,
+        8000
+      );
+      push("/");
+    } else {
+      push(nextPage);
+    }
+  }
+</script>
+
 <style>
   .grid {
     display: grid;
@@ -6,7 +29,6 @@
     align-items: center;
     justify-content: center;
     justify-items: center;
-    padding: 100px 20%;
   }
 
   .question {
@@ -30,21 +52,14 @@
     cursor: pointer;
   }
 </style>
-<script>
-import { each } from "svelte/internal";
-
-
-  export let question = "my question"
-  export let choices = ["Choice 1", "Choice 2", "choice 3", "choice 4"]
-</script>
 
 <div class="grid">
   <div class="question">
     <h1>{question}</h1>
   </div>
-  {#each choices as choice}
-    <div class="answer-choices">
+  {#each choices as choice, i}
+    <button class="answer-choices" on:click={() => choiceMade(i)}>
       {choice}
-    </div>
+    </button>
   {/each}
 </div>

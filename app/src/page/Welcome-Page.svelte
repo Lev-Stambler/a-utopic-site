@@ -28,7 +28,7 @@
     stopped = true;
     push("/question/1", {});
   }
-  docountdown();
+  // docountdown();
 </script>
 
 <style>

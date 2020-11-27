@@ -1,10 +1,13 @@
 <script lang="ts">
 	import Router from 'svelte-spa-router'
 	import {wrap} from 'svelte-spa-router/wrap'
+	import {location} from 'svelte-spa-router'
 
 	import QuestionPage from './page/Question-Page.svelte'
 	import WelcomePage from './page/Welcome-Page.svelte'
 	import StoryPage from './page/Story-Page.svelte'
+	import FakeRpg from './page/FakeRPG-Page.svelte'
+import { alertAutoClose } from './helpers/auto-close-alert';
 	// TODO: put back in
 	// alert("A quick message: before playing please turn off any popup blockers for this site as they are crucial to this game")
 	export let url = "";
@@ -24,26 +27,50 @@
 			props: {
 				title: "Congratulations! You were born",
 				exp: "Congrats, you were born into a family of historians. Your life awaits! You too will grow up and be a historian which will make your parents proud. We are so excited to see what you will do!",
-				nextPage: '/question/2'
+				nextPage: '/fake-rpg'
 			}
+		}),
+		'/fake-rpg': wrap({
+			component: FakeRpg,
+			props: {}
 		})
 	}
 </script>
 
 <main>
-	<Router {routes} />
-	<!-- <Router url="{url}">
-		<div>
-			<Route path="question/1">
-				<QuestionPage question="asas" choices={["1", "2"]} />
-			</Route>
-			<Route path="/"><WelcomePage /></Route>
+	{#if ($location != "" && $location != "/")}
+		<div class="player" on:click={() => alertAutoClose("Hi, I am Jamjam! Also, you are Jamjam. We are Jamjam. Got it? Good.", "An introduction", 400, 400, 5000)}>
+			<span>Jamjam</span>
+			<img src="/static/character.svg" alt="" srcset="">
 		</div>
-	</Router> -->
+	{/if}
+	<Router {routes} />
 </main>
 
 <style>
+	.player {
+		position: absolute;
+		top: calc(5% + 10px);
+		left: calc(5% + 10px);
+		width: 80px;
+		height: 80px;
+		padding: 1rem;
+		background: white;
+		border-radius: 50%;
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		justify-content: center;
+		align-items: center;
+		z-index: 100;
+	}
+	.player img {
+		display: inline-block;
+		height: 100%;
+		width: 100%;
+	}
+
 	main {
+		position: relative;
 		background: black;
 		width: 100%;
 		height: 100%;

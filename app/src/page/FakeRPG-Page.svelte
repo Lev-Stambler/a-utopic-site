@@ -2,7 +2,7 @@
   export let bgX = -2785;
   export let bgY = -90;
   const moveBy = 4;
-  const sleepTime = 1;
+  const sleepTime = 10;
 
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -57,7 +57,7 @@
     await moveDiag(-240, 80)
     await moveDiag(-20, -80)
     await moveDiag(-280, 100)
-    await moveDiag(-80, 200)
+    await moveDiag(-250, 200)
   }, 1000)
   /**
    * The goal is to get from the top right of the map to the 30 30 point

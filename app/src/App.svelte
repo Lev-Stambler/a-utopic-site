@@ -8,6 +8,7 @@
   import StoryPage from "./page/Story-Page.svelte";
   import FakeRpg from "./page/FakeRPG-Page.svelte";
   import { alertAutoClose } from "./helpers/auto-close-alert";
+	import { yearsWorked } from "./helpers/yearsWorked";
   // TODO: put back in
   // alert("A quick message: before playing please turn off any popup blockers for this site as they are crucial to this game")
   export let url = "";
@@ -18,7 +19,7 @@
       props: {
         question:
           "What type of family would you like to be born into? A family of ____",
-        choices: ["science", "history", "medicine", "beurocrats", "other"],
+        choices: ["science", "history", "medicine", "bureaucrats", "other"],
         correct: 1,
         nextPage: "/story/1",
       },
@@ -70,7 +71,7 @@
           "Early Roman Historian",
         ],
         correct: 2,
-        nextPage: "/story/1",
+        nextPage: "/story/3",
       },
     }),
     "/story/3": wrap({
@@ -78,25 +79,58 @@
       props: {
         title: "Good Choice!",
         exp:
-          "We are overjoyed that you choose to be a camp worker. Your train to Siberia takes off tomorrow!",
+          "We are overjoyed that you choose to be a camp worker. Your train to Siberia takes off tomorrow at 08:00!",
         nextPage: "/question/4",
       },
-		}),
+    }),
     "/question/4": wrap({
       component: QuestionPage,
       props: {
         question:
-          "",
+          "Knowing what you know, will you still take off tomorrow morning?",
+        choices: ["Yes", "No"],
+        alertMsg:
+          'You hear rumors that a "Camp Worker" leads a desperate, painful life. You are starting to reconsider your life\'s choices',
+        correct: 0,
+        nextPage: "/story/4",
+      },
+    }),
+    "/story/4": wrap({
+      component: StoryPage,
+      props: {
+        title: "Choo choo!",
+        exp: "The train takes off. The rest of your life is about to begin",
+        nextPage: "/question/5",
+      },
+    }),
+    "/question/5": wrap({
+      component: QuestionPage,
+      props: {
+				initFn: () => yearsWorked.update(curr => curr + 1),
+        question:
+          () => `Year ${$yearsWorked} of working is done! You can either choose to go back home or continue with us!`,
         choices: [
-          "gardener",
-          "state mandated slave (don't worry, we are nice masters!)",
-          "gula... I mean camp worker",
-          "DMV Worker",
-          "Early Roman Historian",
-				],
-				alertMsg: "You hear rumors that a \"Camp Worker\" leads a desperate painful life. You are starting to reconsider your life's choices",
-        correct: 2,
-        nextPage: "/story/1",
+          "I want to go home!!!",
+          "Stay and enjoy another \"fun\" year",
+        ],
+        correct: 1,
+        nextPage: "/story/5",
+      },
+		}),
+		"/story/5": wrap({
+      component: StoryPage,
+      props: {
+        title: "Very nice",
+        exp: "We are excited to have you on for another year! Lets look forward to a bright future",
+        nextPage: () => $yearsWorked > 5 ? "/story/6" : "/question/5",
+      },
+		}),
+		"/story/6": wrap({
+      component: StoryPage,
+      props: {
+        title: "Congratulations!",
+        exp: "You are nearing retirement. To make your life easier, we will retire you!",
+        nextPage: "/",
       },
     }),
     "/fake-rpg": wrap({

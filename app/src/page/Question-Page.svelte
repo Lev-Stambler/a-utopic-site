@@ -3,13 +3,21 @@
   import { alertAutoClose } from "../helpers/auto-close-alert";
   import {location} from 'svelte-spa-router'
   export let correct = 0;
+  export let initFn
   export let question = "my question";
+  let questionTxt
   export let choices = ["Choice 1", "Choice 2", "choice 3", "choice 4"];
   export let nextPage = "/";
   export let alertMsg;
   if (alertMsg) {
     alert(alertMsg)
   }
+  if (typeof question === "string") {
+    questionTxt = question
+  } else {
+    questionTxt = question()
+  }
+  if (initFn) initFn();
   async function choiceMade(choiceInd) {
     if (choiceInd !== correct && correct !== -1) {
       await alertAutoClose(
@@ -61,7 +69,7 @@
 
 <div class="grid">
   <div class="question">
-    <h1>{question}</h1>
+    <h1>{questionTxt}</h1>
   </div>
   {#each choices as choice, i}
     <button class="answer-choices" on:click={() => choiceMade(i)}>

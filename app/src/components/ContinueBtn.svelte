@@ -2,6 +2,7 @@
   import { push } from "svelte-spa-router";
   import { alertAutoClose } from "../helpers/auto-close-alert";
   export let nextPage;
+  let nexPageStr = typeof nextPage === "string" ? nextPage : nextPage()
 
   export let countdown = 10;
   let stopped = false;
@@ -27,9 +28,9 @@
   }
   function nav() {
     stopped = true;
-    push(nextPage, {});
+    push(nexPageStr, {});
   }
-  // docountdown();
+  docountdown();
 </script>
 
 <style>

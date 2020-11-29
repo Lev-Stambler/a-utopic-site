@@ -9,6 +9,7 @@ export function alertAutoClose(msg, title, width, height, timeout) {
   myWindow.document.write(`<center id="msg">` + msg + `</center>`); //write the message you want to display
   myWindow.document.title = title; //write the title of the alert box
   return new Promise((res, rej) => {
+    myWindow.onbeforeunload = () => res()
     setTimeout(() => {
       myWindow.close();
       res()

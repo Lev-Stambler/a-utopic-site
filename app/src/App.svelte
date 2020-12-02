@@ -9,9 +9,7 @@
   import FakeRpg from "./page/FakeRPG-Page.svelte";
   import { alertAutoClose } from "./helpers/auto-close-alert";
 	import { yearsWorked } from "./helpers/yearsWorked";
-  // TODO: put back in
-  // alert("A quick message: before playing please turn off any popup blockers for this site as they are crucial to this game")
-  export let url = "";
+  alert("A quick message: before playing please turn off any popup blockers for this site as they are crucial to this game")
   let routes = {
     "/": WelcomePage,
     "/question/1": wrap({

@@ -21,14 +21,14 @@
   async function choiceMade(choiceInd) {
     if (choiceInd !== correct && correct !== -1) {
       await alertAutoClose(
-        `I am sorry, the choice ${choices[choiceInd]} is not available. Please try again`,
+        `I am sorry, you made a mistake. The choice ${choices[choiceInd]} is not available. For your mistake, you may be punished. But not to worry, you have a chance to run away!`,
         "You have no choice",
         500,
         500,
-        8000
+        18000
       );
-      if ($location !== "/")
-        push("/");
+      if ($location !== "/fake-rpg")
+        push("/fake-rpg");
     } else {
       push(nextPage);
     }

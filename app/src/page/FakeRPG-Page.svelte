@@ -1,15 +1,17 @@
 <script>
   import { fade } from "svelte/transition";
   import { alertAutoClose } from "../helpers/auto-close-alert";
+  import { push } from "svelte-spa-router";
+  import {location} from 'svelte-spa-router'
 
   export let bgX = -2785;
   export let bgY = -90;
   let townsPeopleVis = false;
   const moveBy = 4;
   const sleepTime = 10;
-  // alert(
-  //   "Looks like you may be in trouble. Use your arrow keys and try to escape this town!"
-  // );
+  alert(
+    "Looks like you may be in trouble. Use your arrow keys and try to escape this town!"
+  );
 
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -79,18 +81,24 @@
   // from 0 to 1
   let moving = false;
 
-  function popup_towns_people() {
+  let popup_shown = false;
+  async function popup_towns_people() {
+    popup_shown = true;
     townsPeopleVis = true;
-    alertAutoClose(
+    await alertAutoClose(
       "An angry mob has over taken you for your mistake! Looks like you will have to try the game of life again...",
       "You have no control",
       500,
-      600
+      600,
+      20000
     );
+
+    if ($location !== "/") push("/");
   }
 
   async function moveChar() {
     if (moving) return;
+    if (popup_shown) return;
     if (stepInd >= stepsSplit.length) {
       popup_towns_people();
       return;

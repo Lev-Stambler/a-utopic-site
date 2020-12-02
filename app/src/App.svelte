@@ -129,7 +129,7 @@
       component: StoryPage,
       props: {
         title: "Congratulations!",
-        exp: "You are nearing retirement. To make your life easier, we will retire you!",
+        exp: "You are nearing retirement. To make your life easier, we will retire you! Your life was perfectly well lived. Goodbye.",
         nextPage: "/",
       },
     }),

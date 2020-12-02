@@ -1,7 +1,7 @@
 <script>
   import { push } from "svelte-spa-router";
-  import { alertAutoClose } from "../helpers/auto-close-alert";
   import {location} from 'svelte-spa-router'
+  import { alertAutoClose } from "../helpers/auto-close-alert";
   export let correct = 0;
   export let initFn
   export let question = "my question";
